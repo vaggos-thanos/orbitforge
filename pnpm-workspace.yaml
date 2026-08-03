@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - packages/*
+
+minimumReleaseAgeExclude:
+  - globals@17.9.0
+
+onlyBuiltDependencies: []
