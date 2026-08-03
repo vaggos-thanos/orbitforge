@@ -1,0 +1,14 @@
+{
+  "name": "@orbitforge/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@orbitforge/contracts": "workspace:*",
+    "@orbitforge/satdump-adapter": "workspace:*",
+    "execa": "10.0.1"
+  }
+}
