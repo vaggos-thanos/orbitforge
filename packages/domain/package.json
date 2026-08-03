@@ -1,5 +1,5 @@
 {
-  "name": "@orbitforge/contracts",
+  "name": "@orbitforge/domain",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,5 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json"
-  },
-  "dependencies": {
-    "zod": "4.4.3"
   }
 }
