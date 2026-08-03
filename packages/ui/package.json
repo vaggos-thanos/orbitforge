@@ -1,0 +1,19 @@
+{
+  "name": "@orbitforge/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json"
+  },
+  "peerDependencies": {
+    "vue": ">=3.5.11"
+  },
+  "dependencies": {
+    "@orbitforge/contracts": "workspace:*"
+  }
+}

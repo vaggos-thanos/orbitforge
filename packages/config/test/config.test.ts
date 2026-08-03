@@ -4,7 +4,8 @@ import { loadWebConfig, loadWorkerConfig } from '../src/index.js'
 
 describe('loadWebConfig', () => {
   it('uses the approved localhost and runtime paths', () => {
-    expect(loadWebConfig({})).toEqual({
+    expect(loadWebConfig({ ORBITFORGE_NODE_ID: 'node-1' })).toEqual({
+      nodeId: 'node-1',
       host: '127.0.0.1',
       port: 3000,
       workerSocketPath: '/run/orbitforge/worker.sock',
@@ -13,17 +14,37 @@ describe('loadWebConfig', () => {
   })
 
   it.each(['0.0.0.0', '::'])('rejects public bind address %s', (host) => {
-    expect(() => loadWebConfig({ ORBITFORGE_WEB_HOST: host })).toThrow()
+    expect(() =>
+      loadWebConfig({
+        ORBITFORGE_NODE_ID: 'node-1',
+        ORBITFORGE_WEB_HOST: host,
+      }),
+    ).toThrow()
   })
 
   it('rejects invalid ports without silently falling back', () => {
-    expect(() => loadWebConfig({ ORBITFORGE_WEB_PORT: 'not-a-port' })).toThrow()
-    expect(() => loadWebConfig({ ORBITFORGE_WEB_PORT: '70000' })).toThrow()
+    expect(() =>
+      loadWebConfig({
+        ORBITFORGE_NODE_ID: 'node-1',
+        ORBITFORGE_WEB_PORT: 'not-a-port',
+      }),
+    ).toThrow()
+    expect(() =>
+      loadWebConfig({
+        ORBITFORGE_NODE_ID: 'node-1',
+        ORBITFORGE_WEB_PORT: '70000',
+      }),
+    ).toThrow()
   })
 
   it('contains no placeholder authentication configuration', () => {
-    expect(loadWebConfig({})).not.toHaveProperty('auth')
-    expect(loadWebConfig({})).not.toHaveProperty('sessionSecret')
+    const config = loadWebConfig({ ORBITFORGE_NODE_ID: 'node-1' })
+    expect(config).not.toHaveProperty('auth')
+    expect(config).not.toHaveProperty('sessionSecret')
+  })
+
+  it('requires an explicit node identity for cached readiness', () => {
+    expect(() => loadWebConfig({})).toThrow()
   })
 })
 
