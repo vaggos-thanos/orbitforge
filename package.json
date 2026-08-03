@@ -16,7 +16,7 @@
     "format": "prettier --check .",
     "format:write": "prettier --write .",
     "lint": "eslint .",
-    "test": "vitest run",
+    "test": "node ./scripts/run-tests.mjs",
     "typecheck": "pnpm -r run typecheck"
   },
   "devDependencies": {

@@ -11,6 +11,8 @@ Milestone 1 delivers a read-only station-readiness vertical slice. It does not s
 - ESLint flat config and Prettier
 - systemd journal for runtime logs
 
+The SQLite implementation uses Drizzle `1.0.0-rc.4` with Node 24's built-in `node:sqlite` driver. This avoids native addon build scripts, but both integrations must be reviewed for stable releases before a production milestone.
+
 ## Process boundary
 
 `orbitforge-web` and `orbitforge-worker` are separate processes and future system users. They communicate only through `/run/orbitforge/worker.sock`; the shared `orbitforge` group grants socket access and no broader hardware permission.
