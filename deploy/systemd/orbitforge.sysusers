@@ -1,0 +1,6 @@
+# The shared orbitforge group is exclusively for Unix-socket access.
+g orbitforge - -
+u orbitforge-web - "OrbitForge web service" /var/lib/orbitforge/web /usr/sbin/nologin
+u orbitforge-worker - "OrbitForge readiness worker" /nonexistent /usr/sbin/nologin
+m orbitforge-web orbitforge
+m orbitforge-worker orbitforge

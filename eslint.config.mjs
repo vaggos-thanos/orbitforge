@@ -11,7 +11,7 @@ export default tseslint.config(
       '**/.output/**',
       '.worktrees/**',
       'coverage/**',
-      'dist/**',
+      '**/dist/**',
       'node_modules/**',
     ],
   },

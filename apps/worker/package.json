@@ -4,11 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "esbuild src/main.ts --bundle --platform=node --format=esm --target=node24 --outfile=dist/main.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@orbitforge/config": "workspace:*",
     "@orbitforge/contracts": "workspace:*",
+    "@orbitforge/observability": "workspace:*",
     "@orbitforge/satdump-adapter": "workspace:*",
     "execa": "10.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.1"
   }
 }

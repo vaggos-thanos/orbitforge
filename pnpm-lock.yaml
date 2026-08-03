@@ -91,15 +91,25 @@ importers:
 
   apps/worker:
     dependencies:
+      '@orbitforge/config':
+        specifier: workspace:*
+        version: link:../../packages/config
       '@orbitforge/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@orbitforge/observability':
+        specifier: workspace:*
+        version: link:../../packages/observability
       '@orbitforge/satdump-adapter':
         specifier: workspace:*
         version: link:../../packages/satdump-adapter
       execa:
         specifier: 10.0.1
         version: 10.0.1
+    devDependencies:
+      esbuild:
+        specifier: 0.28.1
+        version: 0.28.1
 
   packages/config:
     dependencies:
