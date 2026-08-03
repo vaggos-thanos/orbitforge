@@ -10,7 +10,7 @@ SatDump, change RF drivers, or expose the web service beyond localhost.
   `/usr/local/bin/node`.
 - The reviewed release has been built and copied to
   `/opt/orbitforge/releases/<version>`.
-- `apps/web/.output/server/index.mjs` and `apps/worker/dist/main.mjs` exist in
+- `apps/web/.output/server/index.mjs` and `apps/worker/dist/main.cjs` exist in
   that release.
 - `/home/vaggos/autotracking_config.json` remains the independently managed
   SatDump configuration.

@@ -84,9 +84,11 @@ describe('Milestone 1 systemd templates', () => {
       scripts?: Record<string, string>
     }
 
-    expect(workerPackage.scripts?.build).toContain('dist/main.mjs')
+    expect(workerPackage.scripts?.build).toContain(
+      '--format=cjs --target=node24 --outfile=dist/main.cjs',
+    )
     expect(unit).toContain(
-      'ExecStart=/usr/local/bin/node /opt/orbitforge/current/apps/worker/dist/main.mjs',
+      'ExecStart=/usr/local/bin/node /opt/orbitforge/current/apps/worker/dist/main.cjs',
     )
     expect(main).toContain('createWorkerSocketServer')
     expect(main).not.toMatch(/rtl_test|satdump\s+live|blacklist|modprobe/)
