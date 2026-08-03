@@ -31,7 +31,9 @@ Results:
 
 - Supply-chain policy checked all 826 lockfile entries.
 - Prettier, ESLint flat config, and all strict TypeScript checks passed.
-- 12 Vitest files passed, 70 tests passed.
+- 13 Vitest files passed, 73 tests passed.
+- The explicit migration CLI created a temporary database, applied the checked-in
+  migration once, recorded its SHA-256 checksum, and made a second run a no-op.
 - The worker produced `apps/worker/dist/main.cjs`.
 - Nuxt produced the Node server under `apps/web/.output`.
 - Both systemd units parsed successfully.

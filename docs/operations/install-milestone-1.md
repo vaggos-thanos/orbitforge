@@ -70,11 +70,20 @@ Replace `<version>` below with the exact reviewed release directory name.
 
 ```bash
 sudo ln -sfn /opt/orbitforge/releases/<version> /opt/orbitforge/current
+sudo systemctl stop orbitforge-web.service 2>/dev/null || true
+sudo -u orbitforge-web /usr/local/bin/node \
+  /opt/orbitforge/current/scripts/migrate-database.mjs \
+  /var/lib/orbitforge/web/orbitforge.db
 sudo install -m 0644 deploy/systemd/orbitforge-web.service /etc/systemd/system/orbitforge-web.service
 sudo install -m 0644 deploy/systemd/orbitforge-worker.service /etc/systemd/system/orbitforge-worker.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now orbitforge-worker.service orbitforge-web.service
 ```
+
+The migration command is explicit and idempotent. It records a SHA-256 checksum
+for every applied migration and refuses a changed historical migration. Keep the
+web service stopped while migrating because it is the exclusive SQLite writer.
+Application startup never applies migrations automatically.
 
 The units have no dependency on `satdump-autotrack.service`; do not stop,
 restart, enable, disable, replace, or reconfigure that service.

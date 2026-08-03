@@ -1,9 +1,9 @@
-import { mkdtemp, readFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 
 import type { ReadinessSnapshot } from '@orbitforge/contracts'
 
@@ -14,6 +14,15 @@ import {
 } from '../src/index.js'
 
 const FILE_DATABASE_TEST_TIMEOUT_MS = 15_000
+const testDirectories: string[] = []
+
+afterEach(async () => {
+  await Promise.all(
+    testDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  )
+})
 
 function snapshot(observedAt: string): ReadinessSnapshot {
   const probe = { status: 'healthy' as const, observedAt, summary: 'Healthy' }
@@ -60,6 +69,7 @@ function snapshot(observedAt: string): ReadinessSnapshot {
 
 async function testDatabase() {
   const directory = await mkdtemp(join(tmpdir(), 'orbitforge-db-'))
+  testDirectories.push(directory)
   const client = openDatabase(join(directory, 'orbitforge.db'))
   const migration = await readFile(
     fileURLToPath(new URL('../drizzle/0000_readiness.sql', import.meta.url)),
@@ -144,6 +154,7 @@ describe('readiness repository', () => {
     'applies the checked-in migration idempotently in tests',
     async () => {
       const directory = await mkdtemp(join(tmpdir(), 'orbitforge-db-'))
+      testDirectories.push(directory)
       const client = openDatabase(join(directory, 'orbitforge.db'))
       const migration = await readFile(
         fileURLToPath(
