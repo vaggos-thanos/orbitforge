@@ -52,6 +52,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 1: Repository contract and workspace baseline
 
 **Files:**
+
 - Create: `package.json`
 - Create: `pnpm-workspace.yaml`
 - Create: `pnpm-lock.yaml`
@@ -64,6 +65,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `docs/operations/development.md`
 
 **Interfaces:**
+
 - Consumes: Node.js 24 LTS and the latest stable pnpm at bootstrap, pinned exactly in `packageManager`; Vitest, Vue Test Utils, ESLint flat config, and Prettier.
 - Produces: root scripts `build`, `test`, `typecheck`, `lint`, and `check`; workspace package naming under `@orbitforge/*`.
 
@@ -77,6 +79,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 2: Versioned protocol and domain primitives
 
 **Files:**
+
 - Create: `packages/contracts/src/envelope.ts`
 - Create: `packages/contracts/src/readiness.ts`
 - Create: `packages/contracts/src/index.ts`
@@ -87,6 +90,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `packages/domain/src/index.ts`
 
 **Interfaces:**
+
 - Consumes: Zod and the SPEC-004 envelope.
 - Produces: `ProtocolEnvelopeSchema`, `ReadinessSnapshotSchema`, `StationId`, `NodeId`, `WorkerId`, `ResourceHealth`, and inferred TypeScript types.
 
@@ -100,6 +104,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 3: Safe configuration and observability packages
 
 **Files:**
+
 - Create: `packages/config/src/web.ts`
 - Create: `packages/config/src/worker.ts`
 - Create: `packages/config/test/config.test.ts`
@@ -108,6 +113,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `packages/observability/test/redaction.test.ts`
 
 **Interfaces:**
+
 - Consumes: Zod, Pino, environment variables.
 - Produces: `loadWebConfig(env)`, `loadWorkerConfig(env)`, `createLogger(options)`, and `withCorrelationId(id)`.
 
@@ -121,6 +127,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 4: Pure SatDump adapter
 
 **Files:**
+
 - Create: `packages/satdump-adapter/src/config.ts`
 - Create: `packages/satdump-adapter/src/version.ts`
 - Create: `packages/satdump-adapter/src/service.ts`
@@ -131,6 +138,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `packages/satdump-adapter/test/adapter.test.ts`
 
 **Interfaces:**
+
 - Consumes: copied, sanitized fixtures; it never writes a SatDump path.
 - Produces: `parseAutotrackingConfig(text)`, `parseSatDumpVersion(logText)`, `parseSatDumpUnit(showOutput)`, and `summarizeOutputDirectory(entries)`.
 
@@ -144,6 +152,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 5: Worker read-only probe layer
 
 **Files:**
+
 - Create: `apps/worker/src/probes/runner.ts`
 - Create: `apps/worker/src/probes/system.ts`
 - Create: `apps/worker/src/probes/storage.ts`
@@ -154,6 +163,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `apps/worker/test/probes.test.ts`
 
 **Interfaces:**
+
 - Consumes: `execa`, `ReadinessSnapshotSchema`, SatDump parsers, and an injected `CommandRunner`.
 - Produces: `collectReadinessSnapshot(context): Promise<ReadinessSnapshot>`, including output writability and healthy/warning/critical disk-capacity classification.
 
@@ -167,6 +177,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 6: Local worker protocol server
 
 **Files:**
+
 - Create: `apps/worker/src/server/socket.ts`
 - Create: `apps/worker/src/server/router.ts`
 - Create: `apps/worker/src/main.ts`
@@ -174,6 +185,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `docs/architecture/0002-web-worker-protocol.md`
 
 **Interfaces:**
+
 - Consumes: `collectReadinessSnapshot`, protocol schemas, `/run/orbitforge/worker.sock`.
 - Produces: request type `readiness.get`, response type `readiness.snapshot`, heartbeat type `worker.heartbeat`, and structured protocol errors.
 
@@ -187,6 +199,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 7: SQLite persistence owned by web
 
 **Files:**
+
 - Create: `packages/database/src/schema/readiness.ts`
 - Create: `packages/database/src/client.ts`
 - Create: `packages/database/src/readiness-repository.ts`
@@ -194,6 +207,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `packages/database/test/readiness-repository.test.ts`
 
 **Interfaces:**
+
 - Consumes: Drizzle, SQLite at `/var/lib/orbitforge/web/orbitforge.db`, and validated `ReadinessSnapshot` values; only the web process imports this package at runtime.
 - Produces: `saveReadinessSnapshot(snapshot)`, `getLatestReadinessSnapshot(nodeId)`, and migration files checked into source control.
 
@@ -207,6 +221,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 8: Minimal Nuxt readiness vertical slice
 
 **Files:**
+
 - Create: `apps/web/nuxt.config.ts`
 - Create: `apps/web/server/utils/worker-client.ts`
 - Create: `apps/web/server/api/readiness.get.ts`
@@ -218,6 +233,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `apps/web/test/readiness-page.test.ts`
 
 **Interfaces:**
+
 - Consumes: worker socket responses, database repository, semantic UI tokens.
 - Produces: same-origin, unauthenticated server API `/api/readiness` and a keyboard-accessible readiness page showing station, SatDump, SDR, time, and storage states.
 
@@ -231,6 +247,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 9: Hardened systemd templates and operator runbook
 
 **Files:**
+
 - Create: `deploy/systemd/orbitforge-web.service`
 - Create: `deploy/systemd/orbitforge-worker.service`
 - Create: `deploy/systemd/orbitforge.tmpfiles`
@@ -240,6 +257,7 @@ docs/operations/             Installation, rollback, and verification runbooks
 - Create: `test/systemd/security.test.ts`
 
 **Interfaces:**
+
 - Consumes: built web/worker entry points and owner-approved users/groups/paths.
 - Produces: templates only; installation remains a separately approved operator action.
 
@@ -253,11 +271,13 @@ docs/operations/             Installation, rollback, and verification runbooks
 ### Task 10: Milestone verification and documentation gate
 
 **Files:**
+
 - Create: `docs/operations/milestone-1-acceptance.md`
 - Modify: `README.md`
 - Modify: relevant architecture and operations documents from Tasks 1-9
 
 **Interfaces:**
+
 - Consumes: all prior packages and applications.
 - Produces: a reproducible acceptance record and explicit deferral list for Milestone 2.
 

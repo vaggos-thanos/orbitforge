@@ -1,0 +1,21 @@
+{
+  "name": "@orbitforge/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host 127.0.0.1",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@orbitforge/config": "workspace:*",
+    "@orbitforge/contracts": "workspace:*",
+    "@orbitforge/database": "workspace:*",
+    "@orbitforge/ui": "workspace:*",
+    "@pinia/nuxt": "1.0.1",
+    "h3": "2.0.1-rc.26",
+    "nuxt": "4.5.1",
+    "pinia": "4.0.2"
+  }
+}

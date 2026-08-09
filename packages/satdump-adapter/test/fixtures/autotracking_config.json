@@ -1,0 +1,41 @@
+{
+  "parameters": {
+    "source": "rtlsdr",
+    "samplerate": 1024000,
+    "gain": 40.2,
+    "agc": false,
+    "bias": false
+  },
+  "finish_processing": true,
+  "output_folder": "/srv/satdump/products",
+  "http_server": "127.0.0.1:8081",
+  "qth": {
+    "lat": 0,
+    "lon": 0,
+    "alt": 100
+  },
+  "tracking": {
+    "autotrack_cfg": {
+      "autotrack_min_elevation": 1,
+      "stop_sdr_when_idle": true,
+      "multi_mode": true
+    }
+  },
+  "tracked_objects": [
+    {
+      "norad": 57166,
+      "downlinks": [
+        {
+          "frequency": 137900000,
+          "record": false,
+          "live": true,
+          "pipeline_name": "meteor_m2-x_lrpt"
+        }
+      ]
+    },
+    {
+      "norad": 59051,
+      "downlinks": []
+    }
+  ]
+}

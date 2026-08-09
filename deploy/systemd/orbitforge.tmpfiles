@@ -1,0 +1,6 @@
+# Runtime socket directory: the worker owns it; the shared group may traverse it.
+d /run/orbitforge 0750 orbitforge-worker orbitforge -
+
+# Persistent state: only the web service owns and writes SQLite.
+d /var/lib/orbitforge 0755 root root -
+d /var/lib/orbitforge/web 0750 orbitforge-web orbitforge-web -
