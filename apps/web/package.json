@@ -15,7 +15,7 @@
     "@orbitforge/ui": "workspace:*",
     "@pinia/nuxt": "1.0.1",
     "h3": "2.0.1-rc.26",
-    "nuxt": "4.5.1",
+    "nuxt": "4.6.2",
     "pinia": "4.0.2"
   }
 }
